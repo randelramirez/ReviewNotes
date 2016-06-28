@@ -13,6 +13,7 @@ namespace ReviewNotes.WebUI.Controllers
     //http://www.mikesdotnetting.com/article/259/asp-net-mvc-5-with-ef-6-working-with-files
     //http://techbrij.com/crud-file-upload-asp-net-mvc-ef-multiple
     //http://cpratt.co/file-uploads-in-asp-net-mvc-with-view-models/
+    //http://rachelappel.com/upload-and-download-files-using-asp-net-mvc/
 
     public class FilesController : Controller
     {
