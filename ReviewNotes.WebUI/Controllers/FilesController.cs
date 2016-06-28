@@ -10,6 +10,10 @@ using System.Web.Mvc;
 namespace ReviewNotes.WebUI.Controllers
 {
 
+    //http://www.mikesdotnetting.com/article/259/asp-net-mvc-5-with-ef-6-working-with-files
+    //http://techbrij.com/crud-file-upload-asp-net-mvc-ef-multiple
+    //http://cpratt.co/file-uploads-in-asp-net-mvc-with-view-models/
+
     public class FilesController : Controller
     {
         private DataContext context = new DataContext();
@@ -49,7 +53,7 @@ namespace ReviewNotes.WebUI.Controllers
         public ActionResult DatabaseUpload1(HttpPostedFileBase file)
         {
             string fileName = file.FileName;
-
+            
             using (var reader = new System.IO.BinaryReader(file.InputStream))
             {
                 byte[] fileContent = reader.ReadBytes(file.ContentLength);
@@ -65,7 +69,6 @@ namespace ReviewNotes.WebUI.Controllers
             // TO DO: add prompt functionality, ask open or save after clicking the link
             var file = this.context.Attachments.Find(id);
             return File(file.FileContent, file.ContentType, file.Filename);
-            
         }
     }
 }
