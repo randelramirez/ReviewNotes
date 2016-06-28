@@ -1,0 +1,25 @@
+﻿@model IEnumerable<ReviewNotes.Core.ReviewAttachment>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table>
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>link</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var attachment in Model) {
+            <tr>
+                <td>@attachment.Id</td>
+                <td><a href="@Url.Action("GetFile", new { id = attachment.Id })">@attachment.Filename</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
