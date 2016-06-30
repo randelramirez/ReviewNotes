@@ -17,6 +17,6 @@ namespace ReviewNotes.Core
 
         public string ContentType { get; set; }
 
-        public virtual Review Review { get; set; }
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

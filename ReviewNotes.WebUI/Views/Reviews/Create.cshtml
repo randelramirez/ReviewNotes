@@ -1,0 +1,24 @@
+﻿@model ReviewNotes.Core.Review
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm("Create", "Reviews", FormMethod.Post,
+                        new { enctype = "multipart/form-data" }))
+{
+    <fieldset>
+        <legend>Files</legend>
+
+        @Html.EditorFor(m => m.Title)<br />
+        @Html.EditorFor(m => m.Keynotes)<br />
+
+        <input type="file" name="files[0]" /><br />
+        <input type="file" name="files[1]" />
+        <input type="submit" value="Upload" />
+    </fieldset>
+
+}
+

@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ReviewNotes.Core.Review>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table>
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Title</td>
+            <td>Keynotes</td>
+            <td>Attachements</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var review in Model)
+        {
+            <tr>
+                <td>@review.Id</td>
+                <td>@review.Title</td>
+                <td>@review.Keynotes</td>
+                <td>
+                    @*use partialview or template for empty and non-empty attachments*@
+                    <ul>
+                        @foreach (var attachment in review.ReviewAttachments)
+                        {
+                            <li><a href="@Url.Action("Files","GetFile", new { Id = attachment.Id })">@attachment.Filename</a></li>
+                        }
+                    </ul>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

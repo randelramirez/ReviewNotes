@@ -7,6 +7,7 @@ using System.Web;
 
 namespace ReviewNotes.WebUI.Helper
 {
+
     public static class DatabaseUploader
     {
 
@@ -22,7 +23,7 @@ namespace ReviewNotes.WebUI.Helper
         //}
         //public static void DeleteFile(string fileName)
         //{
-            
+
         //}
     }
 }
