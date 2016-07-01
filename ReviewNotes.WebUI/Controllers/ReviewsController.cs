@@ -1,11 +1,9 @@
 ﻿using ReviewNotes.Core;
 using ReviewNotes.Infrastructure;
-using System;
+using ReviewNotes.WebUI.Helper;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Data.Entity;
 
 namespace ReviewNotes.WebUI.Controllers
 {
@@ -16,10 +14,7 @@ namespace ReviewNotes.WebUI.Controllers
         // GET: Reviews
         public ActionResult Index()
         {
-            // using include works
-            // but navigation properties are marked as virtual so this should not be required, double check why?????
-            var model = this.dataContext.Reviews;//.Include(r => r.ReviewAttachments );
-            return View(model);
+            return View(this.dataContext.Reviews);
         }
 
         public ActionResult Create()
@@ -33,22 +28,21 @@ namespace ReviewNotes.WebUI.Controllers
             if (ModelState.IsValid)
             {
                 review.ReviewAttachments = new List<ReviewAttachment>();
-                //save
-                //code for saving
                 foreach (var file in files)
                 {
-
-                    // convert file to byte array
-                    using (var reader = new System.IO.BinaryReader(file.InputStream))
+                    //byte[] fileContent = file.InputStream.StreamToByteArray(file.ContentLength);
+                    byte[] fileContent = file.ToByteArray();
+                    var attachment = new ReviewAttachment
                     {
-                        byte[] fileContent = reader.ReadBytes(file.ContentLength);
-                        var attachment = new ReviewAttachment { Filename = file.FileName, ContentType = file.ContentType, FileContent = fileContent };
-                        review.ReviewAttachments.Add(attachment);
-                    }
+                        Filename = file.FileName,
+                        ContentType = file.ContentType,
+                        FileContent = fileContent
+                    };
+                    review.ReviewAttachments.Add(attachment);
                 }
+
                 this.dataContext.Reviews.Add(review);
                 this.dataContext.SaveChanges();
-                //post-redirect-pattern
                 return RedirectToAction("Index");
             }
 

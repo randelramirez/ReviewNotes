@@ -206,6 +206,8 @@
     <Compile Include="Helper\DatabaseUploader.cs" />
     <Compile Include="Helper\FileSystemUploader2.cs" />
     <Compile Include="Helper\FileSystemUploader1.cs" />
+    <Compile Include="Helper\HttpPostedFileHelper.cs" />
+    <Compile Include="Helper\StreamHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
