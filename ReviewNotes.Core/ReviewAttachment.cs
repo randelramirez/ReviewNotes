@@ -9,6 +9,11 @@ namespace ReviewNotes.Core
     // rename, think of a more appropriate name
     public class ReviewAttachment
     {
+        public ReviewAttachment()
+        {
+            this.Reviews = new HashSet<Review>();
+        }
+
         public int Id { get; set; }
 
         public string Filename { get; set; }

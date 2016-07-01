@@ -18,7 +18,7 @@ namespace ReviewNotes.WebUI.Controllers
         {
             // using include works
             // but navigation properties are marked as virtual so this should not be required, double check why?????
-            var model = this.dataContext.Reviews.Include(r => r.ReviewAttachments );
+            var model = this.dataContext.Reviews;//.Include(r => r.ReviewAttachments );
             return View(model);
         }
 

@@ -8,12 +8,17 @@ namespace ReviewNotes.Core
 {
     public class Review
     {
+        public Review()
+        {
+            // for lazy loading
+            this.ReviewAttachments = new HashSet<ReviewAttachment>();
+        }
+
         public int Id { get; set; }
 
         public string Title { get; set; }
 
-        //Summary
-        public string Keynotes { get; set; }
+        public string Content { get; set; }
 
         public virtual ICollection<ReviewAttachment> ReviewAttachments { get; set; }
 
