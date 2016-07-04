@@ -31,7 +31,7 @@ namespace ReviewNotes.WebUI.Controllers
                 foreach (var file in files)
                 {
                     //byte[] fileContent = file.InputStream.StreamToByteArray(file.ContentLength);
-                    byte[] fileContent = file.ToByteArray();
+                    byte[] fileContent = file?.ToByteArray();
                     var attachment = new ReviewAttachment
                     {
                         Filename = file.FileName,

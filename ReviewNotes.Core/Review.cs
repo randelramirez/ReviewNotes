@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,8 @@ namespace ReviewNotes.Core
 
         public string Title { get; set; }
 
+        // use a viewmodel and put the attributes their
+        //[DataType(DataType.MultilineText)]
         public string Content { get; set; }
 
         public virtual ICollection<ReviewAttachment> ReviewAttachments { get; set; }

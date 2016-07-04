@@ -7,18 +7,36 @@
 <h2>Create</h2>
 
 @using (Html.BeginForm("Create", "Reviews", FormMethod.Post,
-                        new { enctype = "multipart/form-data" }))
+                                    new { enctype = "multipart/form-data" }))
 {
     <fieldset>
         <legend>Files</legend>
 
         @Html.EditorFor(m => m.Title)<br />
-        @Html.EditorFor(m => m.Content)<br />
+        @Html.TextAreaFor(m => m.Content, new { style = "width: 800px; resize: none; max-width:800px; height:400px" })<br />
+        @*@Html.EditorFor(m => m.Content)<br />*@
 
-        <input type="file" name="files[0]" /><br />
-        <input type="file" name="files[1]" />
+        <div class="control-container">
+            <input type="file" name="files[0]" />
+        </div>
+
+        <button id="add">Add</button>
         <input type="submit" value="Upload" />
     </fieldset>
 
 }
 
+@section scripts{
+    <script>
+        $(function () {
+            $("#add").click(function (e) {
+                //var fileInput = '<input type="file" name="file[' + ']'"/>';
+                e.preventDefault();
+                var numberOfFiles = $("input[type='file']").length;
+                var fileInput = "<div class='control-container'><input type='file' name='file[" + numberOfFiles + "]' /></div>";
+                $("#add").before(fileInput);
+
+            });
+        })
+    </script>
+}
