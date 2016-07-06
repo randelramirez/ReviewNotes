@@ -6,13 +6,13 @@
 }
 
 <h2>Index</h2>
+@Html.ActionLink("Create a review", "Create")
 
 <table>
     <thead>
         <tr>
             <td>Id</td>
             <td>Title</td>
-            <td>Keynotes</td>
             <td>Attachements</td>
         </tr>
     </thead>
@@ -21,8 +21,7 @@
         {
             <tr>
                 <td>@review.Id</td>
-                <td>@review.Title</td>
-                <td>@review.Content</td>
+                <td>@Html.ActionLink(review.Title,"Edit", new { id = review.Id})</td>
                 <td>
                     @*use partialview or template for empty and non-empty attachments*@
                     <ul>

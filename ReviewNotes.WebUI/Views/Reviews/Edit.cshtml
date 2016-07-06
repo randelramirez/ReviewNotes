@@ -1,0 +1,67 @@
+﻿@model ReviewNotes.Core.Review
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+@Html.ActionLink("Go back to list", "Index")<br />
+@using (Html.BeginForm("Edit", "Reviews", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <legend>Files</legend>
+
+        <span>Title: </span>@Html.EditorFor(m => m.Title)<br />
+        @*@Html.TextAreaFor(m => m.Content, new { id = "content", style = "width: 800px; resize: none; max-width:800px; height:400px" })<br />*@
+        <textarea id="content" style="width: 800px; resize: none; max-width:800px; height:400px" name="content">@Html.Raw(Model.Content)</textarea>
+        <div>
+            <div>
+                Attachments:
+            </div>
+            <ul>
+                @foreach (var attachment in Model.ReviewAttachments)
+                {
+                    <li>@attachment.Filename</li>
+                }
+            </ul>
+        </div>
+
+
+        <div class="control-container">
+            <input type="file" name="files[0]" />
+        </div>
+        
+        <button id="add">Add files...</button><br />
+        <input type="submit" value="Save" />
+    </fieldset>
+}
+
+@section scripts{
+    <script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
+    <script>
+        tinymce.init({
+            selector: '#content',
+            encoding: "xml",
+            plugins:
+            [
+                "advlist autolink lists link image charmap print preview anchor",
+                "searchreplace visualblocks code fullscreen",
+                "insertdatetime media table contextmenu paste imagetools"
+            ],
+        });
+    </script>
+    <script>
+        $(function () {
+            $("#add").click(function (e) {
+                //var fileInput = '<input type="file" name="file[' + ']'"/>';
+                e.preventDefault();
+                var numberOfFiles = $("input[type='file']").length;
+                var fileInput = "<div class='control-container'><input type='file' name='file[" + numberOfFiles + "]' /></div>";
+                $("#add").before(fileInput);
+                $("input[type='file']").last().click();
+            });
+        })
+    </script>
+}
