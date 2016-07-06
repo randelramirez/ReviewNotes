@@ -280,6 +280,7 @@
     <Content Include="Views\Reviews\Create.cshtml" />
     <Content Include="Views\Reviews\Index.cshtml" />
     <Content Include="Views\Reviews\Edit.cshtml" />
+    <Content Include="Views\Reviews\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -343,10 +344,4 @@
   </Target>
   <Target Name="AfterBuild">
   </Target> -->
-  <PropertyGroup>
-    <PostBuildEvent>
-      if not exist "$(WebProjectOutputDir)\bin\Roslyn" md "$(WebProjectOutputDir)\bin\Roslyn"
-      start /MIN xcopy /s /y /R "$(OutDir)roslyn\*.*" "$(WebProjectOutputDir)\bin\Roslyn"
-    </PostBuildEvent>
-  </PropertyGroup>
 </Project>

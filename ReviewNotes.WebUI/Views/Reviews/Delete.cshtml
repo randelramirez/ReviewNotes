@@ -1,0 +1,30 @@
+﻿@model ReviewNotes.Core.Review
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+@using (Html.BeginForm("Delete", "Reviews", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <legend>Review</legend>
+        <div>
+            <span>Title: </span>
+            <span>@Model.Title</span>
+        </div>
+        <div>
+            <span>Attachments: </span>
+            <ul>
+                @foreach (var attachment in Model.ReviewAttachments) {
+                    <li>@attachment.Filename</li>
+                }
+            </ul>
+        </div>
+        @Html.HiddenFor(r => r.Id)
+        <input type="submit" value="Delete" />
+    </fieldset>
+}

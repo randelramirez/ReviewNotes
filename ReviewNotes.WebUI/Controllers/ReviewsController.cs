@@ -110,6 +110,7 @@ namespace ReviewNotes.WebUI.Controllers
                 return HttpNotFound();
             }
             this.dataContext.Reviews.Remove(review);
+            this.dataContext.SaveChanges();
             return RedirectToAction("Index");
         }
     }

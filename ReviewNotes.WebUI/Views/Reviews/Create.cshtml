@@ -35,7 +35,7 @@
                 //var fileInput = '<input type="file" name="file[' + ']'"/>';
                 e.preventDefault();
                 var numberOfFiles = $("input[type='file']").length;
-                var fileInput = "<div class='control-container'><input type='file' name='file[" + numberOfFiles + "]' /></div>";
+                var fileInput = "<div class='control-container'><input type='file' name='files[" + numberOfFiles + "]' /></div>";
                 $("#add").before(fileInput);
                 $("input[type='file']").last().click();
 

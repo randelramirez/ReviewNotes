@@ -8,12 +8,13 @@
 <h2>Index</h2>
 @Html.ActionLink("Create a review", "Create")
 
-<table>
+<table width="100%">
     <thead>
         <tr>
             <td>Id</td>
             <td>Title</td>
             <td>Attachements</td>
+            <td></td>
         </tr>
     </thead>
     <tbody>
@@ -30,6 +31,9 @@
                             <li><a href="@Url.Action("Files","GetFile", new { Id = attachment.Id })">@attachment.Filename</a></li>
                         }
                     </ul>
+                </td>
+                <td>
+                    @Html.ActionLink("x","Delete", new { id = review.Id })
                 </td>
             </tr>
         }
