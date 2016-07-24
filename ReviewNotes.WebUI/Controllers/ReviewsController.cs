@@ -46,7 +46,7 @@ namespace ReviewNotes.WebUI.Controllers
                         review.ReviewAttachments.Add(attachment);
                     }
                 }
-                
+
                 this.dataContext.Reviews.Add(review);
                 this.dataContext.SaveChanges();
                 return RedirectToAction("Index");
@@ -71,15 +71,44 @@ namespace ReviewNotes.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Content")]Review review)
+        public ActionResult Edit([Bind(Include = "Id,Title,Content")]Review postedReview, IEnumerable<HttpPostedFileBase> files, IEnumerable<int> deletedAttachments)
         {
             if (ModelState.IsValid)
             {
+                var review = this.dataContext.Reviews.Single(r => r.Id == postedReview.Id);
+                review.Title = postedReview.Title;
+                review.Content = postedReview.Content;
+                if (deletedAttachments != null && deletedAttachments.Count() > 0)
+                {
+                    foreach (var attachmentId in deletedAttachments)
+                    {
+                        var attachment = this.dataContext.Attachments.Find(attachmentId);
+                        if (attachment != null)
+                        {
+                            this.dataContext.Attachments.Remove(attachment);
+                        }
+                    }
+                }
+                if (deletedAttachments != null && files.Count() > 0)
+                {
+                    foreach (var file in files)
+                    {
+                        byte[] fileContent = file?.ToByteArray();
+                        var attachment = new Attachment
+                        {
+                            Filename = file.FileName,
+                            ContentType = file.ContentType,
+                            FileContent = fileContent
+                        };
+                        review.ReviewAttachments.Add(attachment);
+                    }
+                }
+
                 this.dataContext.Entry(review).State = System.Data.Entity.EntityState.Modified;
                 this.dataContext.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(review);
+            return View(postedReview);
         }
 
         public ActionResult Delete(int? id)

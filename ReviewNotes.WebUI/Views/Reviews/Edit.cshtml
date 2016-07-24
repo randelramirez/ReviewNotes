@@ -6,7 +6,7 @@
 
 <h2>Edit</h2>
 @Html.ActionLink("Go back to list", "Index")<br />
-@using (Html.BeginForm("Edit", "Reviews", FormMethod.Post))
+@using (Html.BeginForm("Edit", "Reviews", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -23,7 +23,7 @@
             <ul>
                 @foreach (var attachment in Model.ReviewAttachments)
                 {
-                    <li>@attachment.Filename</li>
+                    <li>@attachment.Filename <a class="delete" data-attachment-id="@attachment.Id">Delete</a></li>
                 }
             </ul>
         </div>
@@ -32,7 +32,9 @@
         <div class="control-container">
             <input type="file" name="files[0]" />
         </div>
-        
+        <div id="hidden-fields">
+        </div>
+
         <button id="add">Add files...</button><br />
         <input type="submit" value="Save" />
     </fieldset>
@@ -51,9 +53,11 @@
                 "insertdatetime media table contextmenu paste imagetools"
             ],
         });
+
     </script>
     <script>
         $(function () {
+
             $("#add").click(function (e) {
                 //var fileInput = '<input type="file" name="file[' + ']'"/>';
                 e.preventDefault();
@@ -61,6 +65,17 @@
                 var fileInput = "<div class='control-container'><input type='file' name='files[" + numberOfFiles + "]' /></div>";
                 $("#add").before(fileInput);
                 $("input[type='file']").last().click();
+            });
+
+            $(".delete").hover().css({ cursor: 'pointer' });
+
+            $(".delete").click(function (e) {
+                e.preventDefault();
+                var attachmentId = $(this).data("attachment-id");
+                var currentIndex = $("#hidden-fields").children().length;
+                var attachmentsToDelete = '<input type="hidden"' + 'name=' + '"' + 'deletedAttachments[' + currentIndex + ']' + '"' + 'value=' + '"' + attachmentId + '"' + '/>';
+                $("#hidden-fields").append(attachmentsToDelete);
+                $(this).parent().remove();
             });
         })
     </script>
