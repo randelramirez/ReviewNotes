@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ReviewNotes.Core
 {
@@ -13,7 +8,7 @@ namespace ReviewNotes.Core
         public Review()
         {
             // for lazy loading
-            this.ReviewAttachments = new HashSet<ReviewAttachment>();
+            this.ReviewAttachments = new HashSet<Attachment>();
         }
 
         public int Id { get; set; }
@@ -26,7 +21,7 @@ namespace ReviewNotes.Core
         [Column(TypeName = "ntext")]
         public string Content { get; set; }
 
-        public virtual ICollection<ReviewAttachment> ReviewAttachments { get; set; }
+        public virtual ICollection<Attachment> ReviewAttachments { get; set; }
 
     }
 }

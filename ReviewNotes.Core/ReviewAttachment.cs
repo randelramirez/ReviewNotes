@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ReviewNotes.Core
 {
     // rename, think of a more appropriate name
-    public class ReviewAttachment
+    public class Attachment
     {
-        public ReviewAttachment()
+        public Attachment()
         {
             this.Reviews = new HashSet<Review>();
         }

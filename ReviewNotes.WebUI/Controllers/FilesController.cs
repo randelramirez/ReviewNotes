@@ -1,9 +1,5 @@
 ﻿using ReviewNotes.Infrastructure;
-using ReviewNotes.WebUI.Helper;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
@@ -58,7 +54,7 @@ namespace ReviewNotes.WebUI.Controllers
             using (var reader = new System.IO.BinaryReader(file.InputStream))
             {
                 byte[] fileContent = reader.ReadBytes(file.ContentLength);
-                this.context.Attachments.Add(new Core.ReviewAttachment { FileContent = fileContent, Filename = file.FileName, ContentType = file.ContentType });
+                this.context.Attachments.Add(new Core.Attachment { FileContent = fileContent, Filename = file.FileName, ContentType = file.ContentType });
                 this.context.SaveChanges();
             }
 

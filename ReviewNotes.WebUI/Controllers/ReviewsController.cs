@@ -32,12 +32,12 @@ namespace ReviewNotes.WebUI.Controllers
             {
                 if (files.Count() > 0 && files.ToList()[0] != null)
                 {
-                    review.ReviewAttachments = new List<ReviewAttachment>();
+                    review.ReviewAttachments = new List<Attachment>();
                     foreach (var file in files)
                     {
                         //byte[] fileContent = file.InputStream.StreamToByteArray(file.ContentLength);
                         byte[] fileContent = file?.ToByteArray();
-                        var attachment = new ReviewAttachment
+                        var attachment = new Attachment
                         {
                             Filename = file.FileName,
                             ContentType = file.ContentType,
