@@ -71,7 +71,8 @@ namespace ReviewNotes.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Content")]Review postedReview, IEnumerable<HttpPostedFileBase> files, IEnumerable<int> deletedAttachments)
+        public ActionResult Edit([Bind(Include = "Id,Title,Content")]Review postedReview, IEnumerable<HttpPostedFileBase> files, 
+            IEnumerable<int> deletedAttachments)
         {
             if (ModelState.IsValid)
             {

@@ -5,12 +5,6 @@ namespace ReviewNotes.Core
 {
     public class Review
     {
-        public Review()
-        {
-            // for lazy loading
-            this.ReviewAttachments = new HashSet<Attachment>();
-        }
-
         public int Id { get; set; }
 
         public string Title { get; set; }
