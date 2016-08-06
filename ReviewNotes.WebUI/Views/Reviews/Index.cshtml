@@ -28,7 +28,7 @@
                     <ul>
                         @foreach (var attachment in review.ReviewAttachments)
                         {
-                            <li><a href="@Url.Action("Files","GetFile", new { Id = attachment.Id })">@attachment.Filename</a></li>
+                            <li><a href="@Url.Action("GetFile","Files", new { Id = attachment.Id })">@attachment.Filename</a></li>
                         }
                     </ul>
                 </td>
