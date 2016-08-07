@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ReviewNotes.Core.Review>
+﻿@model IEnumerable<ReviewNotes.WebUI.ViewModels.ReviewViewModel>
 
 
 @{
@@ -26,7 +26,7 @@
                 <td>
                     @*use partialview or template for empty and non-empty attachments*@
                     <ul>
-                        @foreach (var attachment in review.ReviewAttachments)
+                        @foreach (var attachment in review.Attachments)
                         {
                             <li><a href="@Url.Action("GetFile","Files", new { Id = attachment.Id })">@attachment.Filename</a></li>
                         }

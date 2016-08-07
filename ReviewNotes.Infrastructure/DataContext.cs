@@ -13,7 +13,7 @@ namespace ReviewNotes.Infrastructure
         {
             modelBuilder.Entity<Review>()
                 .HasKey(r => r.Id)
-                .HasMany(r => r.ReviewAttachments)
+                .HasMany(r => r.Attachments)
                 .WithRequired(r => r.Review)
                 .HasForeignKey(r => r.ReviewId);
             modelBuilder.Entity<Review>()

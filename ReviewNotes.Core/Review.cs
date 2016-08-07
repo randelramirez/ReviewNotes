@@ -9,11 +9,9 @@ namespace ReviewNotes.Core
 
         public string Title { get; set; }
 
-        // use a viewmodel and put the attributes their
-        //[DataType(DataType.MultilineText)]
         public string Content { get; set; }
 
-        public virtual ICollection<Attachment> ReviewAttachments { get; set; }
+        public virtual ICollection<Attachment> Attachments { get; set; }
 
     }
 }

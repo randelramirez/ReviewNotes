@@ -2,7 +2,7 @@
 
 namespace ReviewNotes.Core
 {
-    // rename, think of a more appropriate name
+
     public class Attachment
     {
         public int Id { get; set; }

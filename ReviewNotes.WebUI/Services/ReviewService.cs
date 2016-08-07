@@ -56,7 +56,7 @@ namespace ReviewNotes.WebUI.Services
                         ContentType = file.ContentType,
                         FileContent = fileContent
                     };
-                    review.ReviewAttachments.Add(attachment);
+                    review.Attachments.Add(attachment);
                 }
             }
 

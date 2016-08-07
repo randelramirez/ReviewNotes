@@ -1,4 +1,4 @@
-﻿@model ReviewNotes.Core.Review
+﻿@model ReviewNotes.WebUI.ViewModels.ReviewViewModel
 
 @{
     ViewBag.Title = "Delete";
@@ -19,7 +19,7 @@
         <div>
             <span>Attachments: </span>
             <ul>
-                @foreach (var attachment in Model.ReviewAttachments) {
+                @foreach (var attachment in Model.Attachments) {
                     <li>@attachment.Filename</li>
                 }
             </ul>

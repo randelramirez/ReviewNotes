@@ -1,7 +1,7 @@
 ﻿using ReviewNotes.Core;
 using ReviewNotes.Infrastructure;
-using ReviewNotes.WebUI.Helper;
 using ReviewNotes.WebUI.Services;
+using ReviewNotes.WebUI.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -17,7 +17,8 @@ namespace ReviewNotes.WebUI.Controllers
         // GET: Reviews
         public ActionResult Index()
         {
-            return View(service.GetAllReviews());
+            var model = service.GetAllReviews().Select(r => new ReviewViewModel { Id = r.Id, Content = r.Content, Title = r.Title, Attachments = r.Attachments });
+            return View(model);
         }
 
         public ActionResult Create()
@@ -27,21 +28,22 @@ namespace ReviewNotes.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Review review, IEnumerable<HttpPostedFileBase> files)
+        public ActionResult Create(ReviewViewModel model, IEnumerable<HttpPostedFileBase> files)
         {
             if (ModelState.IsValid)
             {
+                var review = new Review { Title = model.Title, Content = model.Content };
                 if (files.Count() > 0 && files.ToList()[0] != null)
                 {
-                    review.ReviewAttachments = ReviewService.UploadedFilesToReviewAttachment(files);
+                    review.Attachments = ReviewService.UploadedFilesToReviewAttachment(files);
                 }
-
+                
                 this.service.Add(review);
                 this.service.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(review);
+            return View(model);
         }
 
         public ActionResult Edit(int? id)
@@ -51,25 +53,27 @@ namespace ReviewNotes.WebUI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Review review = this.service.GetOne(id.Value);
+            var model = new ReviewViewModel { Id = review.Id, Title = review.Title, Content = review.Content, Attachments = review.Attachments };
             if (review == null)
             {
                 return HttpNotFound();
             }
-            return View(review);
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Content")]Review postedReview, IEnumerable<HttpPostedFileBase> files,
+        public ActionResult Edit(ReviewViewModel model, IEnumerable<HttpPostedFileBase> files,
             IEnumerable<int> deletedAttachments)
         {
             if (ModelState.IsValid)
             {
-                this.service.Update(postedReview, files, deletedAttachments);
+                var review = new Review { Id = model.Id, Title = model.Title, Content = model.Content };
+                this.service.Update(review, files, deletedAttachments);
                 this.service.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(postedReview);
+            return View(model);
         }
 
         public ActionResult Delete(int? id)
@@ -79,11 +83,12 @@ namespace ReviewNotes.WebUI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Review review = this.service.GetOne(id.Value);
+            var model = new ReviewViewModel { Id = review.Id, Title = review.Title, Content = review.Content, Attachments = review.Attachments };
             if (review == null)
             {
                 return HttpNotFound();
             }
-            return View(review);
+            return View(model);
         }
 
         [HttpPost, ActionName("Delete")]
