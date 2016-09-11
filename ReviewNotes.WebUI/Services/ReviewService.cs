@@ -32,6 +32,8 @@ namespace ReviewNotes.WebUI.Services
             IEnumerable<int> deletedAttachments)
         {
             var review = this.dataContext.Reviews.Single(r => r.Id == postedReview.Id);
+
+            // debug the sql statement generated for update, check the profiler if only properties with updated/changed values are included, or if all EF included the everything(all properties, or all properties that assigned property = "new value")
             review.Title = postedReview.Title;
             review.Content = postedReview.Content;
             if (deletedAttachments != null && deletedAttachments.Count() > 0)
@@ -45,7 +47,7 @@ namespace ReviewNotes.WebUI.Services
                     }
                 }
             }
-            if (deletedAttachments != null && files.Count() > 0)
+            if (files != null && files.Count() > 0)
             {
                 foreach (var file in files)
                 {
