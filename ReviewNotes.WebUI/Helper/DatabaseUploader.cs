@@ -10,7 +10,6 @@ namespace ReviewNotes.WebUI.Helper
 
     public static class DatabaseUploader
     {
-        // test
         //public static string UploadFile(HttpPostedFileBase file)
         //{
         //    string fileName = file.FileName;
