@@ -51,14 +51,18 @@ namespace ReviewNotes.WebUI.Services
             {
                 foreach (var file in files)
                 {
-                    byte[] fileContent = file?.ToByteArray();
-                    var attachment = new Attachment
+                    if (file != null)
                     {
-                        Filename = file.FileName,
-                        ContentType = file.ContentType,
-                        FileContent = fileContent
-                    };
-                    review.Attachments.Add(attachment);
+                        byte[] fileContent = file.ToByteArray();
+                        var attachment = new Attachment
+                        {
+                            Filename = file.FileName,
+                            ContentType = file.ContentType,
+                            FileContent = fileContent
+                        };
+                        review.Attachments.Add(attachment);
+                    }
+                   
                 }
             }
 
