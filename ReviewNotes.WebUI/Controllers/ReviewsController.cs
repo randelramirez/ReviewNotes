@@ -17,6 +17,7 @@ namespace ReviewNotes.WebUI.Controllers
         // GET: Reviews
         public ActionResult Index(string search)
         {
+            ViewBag.Search = search;
             IEnumerable<ReviewViewModel> model;
             if (!string.IsNullOrEmpty(search))
             {
