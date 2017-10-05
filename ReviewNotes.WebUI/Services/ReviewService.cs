@@ -20,7 +20,12 @@ namespace ReviewNotes.WebUI.Services
 
         public IEnumerable<Review> GetAllReviews()
         {
-            return this.dataContext.Reviews.ToList();
+            return this.dataContext.Reviews.AsEnumerable();
+        }
+
+        public IEnumerable<Review> GetAllReviews(Func<Review, bool> predicate)
+        {
+            return this.dataContext.Reviews.Where(predicate);
         }
 
         public void Add(Review review)

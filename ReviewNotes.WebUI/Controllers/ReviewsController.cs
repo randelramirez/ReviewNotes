@@ -15,9 +15,18 @@ namespace ReviewNotes.WebUI.Controllers
         private ReviewService service = new ReviewService(new DataContext());
 
         // GET: Reviews
-        public ActionResult Index()
+        public ActionResult Index(string search)
         {
-            var model = service.GetAllReviews().Select(r => new ReviewViewModel { Id = r.Id, Content = r.Content, Title = r.Title, Attachments = r.Attachments });
+            IEnumerable<ReviewViewModel> model;
+            if (!string.IsNullOrEmpty(search))
+            {
+                model = service.GetAllReviews(r => r.Title.Contains(search) || r.Content.Contains(search)).Select(r => new ReviewViewModel { Id = r.Id, Content = r.Content, Title = r.Title, Attachments = r.Attachments });
+            }
+            else
+            {
+                model = service.GetAllReviews().Select(r => new ReviewViewModel { Id = r.Id, Content = r.Content, Title = r.Title, Attachments = r.Attachments });
+            }
+            
             return View(model);
         }
 

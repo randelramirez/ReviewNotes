@@ -6,6 +6,12 @@
 }
 
 <h2>Index</h2>
+@using (Html.BeginForm("Index", "Reviews", FormMethod.Get))
+{
+    <input type="text" value="@ViewBag.Search" name="search" />
+    <button type="submit">Search</button>
+}
+
 @Html.ActionLink("Create a review", "Create")
 
 <table width="100%">
